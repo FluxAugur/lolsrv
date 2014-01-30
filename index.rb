@@ -5,6 +5,7 @@ require "sinatra/config_file"
 require "pp"
 require "uri"
 require "yaml"
+require 'Haml'
 require "logger"
 require 'fileutils'
 
@@ -72,7 +73,7 @@ class LolServer < Sinatra::Base
       end
     }
     @commits = settings.mongo_commits.find().sort({time: -1, date: -1})
-    erb :index
+    haml :index
   end
 
   get '/lol/:sha' do |sha|

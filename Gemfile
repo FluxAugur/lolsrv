@@ -8,6 +8,7 @@ gem "mongo"
 gem "bson"
 gem "bson_ext"
 gem "json"
+gem "haml"
 gem "emk-sinatra-url-for", require: "sinatra/url_for"
 
 group :development do
