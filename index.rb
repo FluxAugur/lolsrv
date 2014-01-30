@@ -14,12 +14,12 @@ class LolServer < Sinatra::Base
   config_file 'config.yml'
 
   def self.get_connection
-      return @db_connection if @db_connection
-      db = URI.parse(ENV['MONGOHQ_URL'])
-      db_name = db.path.gsub(/^\//, '')
-      @db_connection = Mongo::Connection.new(db.host, db.port).db(db_name)
-      @db_connection.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
-      @db_connection
+    return @db_connection if @db_connection
+    db = URI.parse(ENV['MONGOHQ_URL'])
+    db_name = db.path.gsub(/^\//, '')
+    @db_connection = Mongo::Connection.new(db.host, db.port).db(db_name)
+    @db_connection.authenticate(db.user, db.password) unless (db.user.nil? || db.user.nil?)
+    @db_connection
   end
 
   configure do
@@ -51,11 +51,11 @@ class LolServer < Sinatra::Base
 
   get '/' do
     client = Octokit::Client.new \
-        :client_id => ENV['CLIENT_ID'],
-        :client_secret => ENV['CLIENT_SECRET']
+      :client_id => ENV['CLIENT_ID'],
+      :client_secret => ENV['CLIENT_SECRET']
 
     settings.mongo_commits.find({ 'date' => {'$exists' => false} }).each { |commit|
-		begin
+      begin
         #This is great and all, but it needs to be authenticated to use
         github_commit = Octokit.commit(commit['repo'], commit['sha'])
         if github_commit
@@ -67,24 +67,24 @@ class LolServer < Sinatra::Base
           settings.mongo_commits.update({"_id" => commit["_id"]}, {"$set" => { "date" => commit["time"] }})
         end
       rescue Exception => e
-			pp e
-			#raise
-		end
-	}
-	@commits = settings.mongo_commits.find().sort({time: -1, date: -1})
-	erb :index
+        pp e
+        #raise
+      end
+    }
+    @commits = settings.mongo_commits.find().sort({time: -1, date: -1})
+    erb :index
   end
 
   get '/lol/:sha' do |sha|
-	content_type 'image/jpg'
-	begin
-		file = settings.mongo_grid.get settings.mongo_commits.find(sha: sha).first['image_id']
-		response['Cache-Control'] = "public, max-age=60"
-		file.read
-	rescue Exception => e
-	  pp e
-		raise Sinatra::NotFound
-	end
+    content_type 'image/jpg'
+    begin
+      file = settings.mongo_grid.get settings.mongo_commits.find(sha: sha).first['image_id']
+      response['Cache-Control'] = "public, max-age=60"
+      file.read
+    rescue Exception => e
+      pp e
+      raise Sinatra::NotFound
+    end
   end
 
   get '/lols' do
@@ -93,12 +93,12 @@ class LolServer < Sinatra::Base
   end
 
   post '/uplol' do
-	settings.mongo_commits.insert(
-		sha:      params['sha'],
-        url:      params['url'],
-        time:     params['date'],
-        repo:     params['repo'],
-		image_id: settings.mongo_grid.put(params['lol'][:tempfile])
-	)
+    settings.mongo_commits.insert(
+      sha:      params['sha'],
+      url:      params['url'],
+      time:     params['date'],
+      repo:     params['repo'],
+      image_id: settings.mongo_grid.put(params['lol'][:tempfile])
+    )
   end
 end
