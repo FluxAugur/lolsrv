@@ -5,7 +5,7 @@ require "sinatra/config_file"
 require "pp"
 require "uri"
 require "yaml"
-require 'Haml'
+require 'haml'
 require "logger"
 require 'fileutils'
 
