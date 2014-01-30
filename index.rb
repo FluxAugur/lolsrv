@@ -25,7 +25,6 @@ class LolServer < Sinatra::Base
 
   configure do
     $log = Logger.new('output.log','weekly')
-
     set :logging, false
 
     mongo_db = nil
@@ -53,7 +52,7 @@ class LolServer < Sinatra::Base
   get '/' do
     client = Octokit::Client.new(:client_id => ENV['CLIENT_ID'], :client_secret => ENV['CLIENT_SECRET'])
 
-    settings.mongo_commits.find({ 'date' => {'$exists' => false} }).each do |commit|
+    settings.mongo_commits.find({ 'date' => {'$exists' => false}, 'repo' => {'$exists' => false} }).each do |commit|
       begin
         #This is great and all, but it needs to be authenticated to use
         github_commit = Octokit.commit(commit['repo'], commit['sha'])
