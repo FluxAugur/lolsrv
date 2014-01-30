@@ -9,6 +9,7 @@ gem "bson"
 gem "bson_ext"
 gem "json"
 gem "haml"
+gem 'newrelic_rpm'
 gem "emk-sinatra-url-for", require: "sinatra/url_for"
 
 group :development do
