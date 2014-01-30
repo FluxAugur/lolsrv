@@ -43,7 +43,7 @@
       <!-- Example row of columns -->
       <div class="row">
         <% @commits.each do |commit| %>
-          <div class="col-md-4">
+          <div class="col-md-4 commit">
             <a href="<%= commit['url'] %>" target="_blank">
               <img class="lolimage" src="" data-src="<%= url_for "/lol/#{commit['sha']}" %>" width="640" height="480" title="<%= DateTime.strptime(commit['date'].to_s, "%s").strftime("%Y-%m-%d %H:%M:%S") if commit['date'] %>"/>
             </a>
