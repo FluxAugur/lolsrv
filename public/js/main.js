@@ -23,7 +23,6 @@ var lazy = function() {
     return b > a;
   }).forEach(function(n){
     images[n].src = images[n].getAttribute('data-src');
-    console.log(n);
     images.splice(n,1);
   });
 };

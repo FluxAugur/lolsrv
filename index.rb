@@ -51,11 +51,9 @@ class LolServer < Sinatra::Base
   end
 
   get '/' do
-    client = Octokit::Client.new \
-      :client_id => ENV['CLIENT_ID'],
-      :client_secret => ENV['CLIENT_SECRET']
+    client = Octokit::Client.new(:client_id => ENV['CLIENT_ID'], :client_secret => ENV['CLIENT_SECRET'])
 
-    settings.mongo_commits.find({ 'date' => {'$exists' => false} }).each { |commit|
+    settings.mongo_commits.find({ 'date' => {'$exists' => false} }).each do |commit|
       begin
         #This is great and all, but it needs to be authenticated to use
         github_commit = Octokit.commit(commit['repo'], commit['sha'])
@@ -71,7 +69,7 @@ class LolServer < Sinatra::Base
         pp e
         #raise
       end
-    }
+    end
     @commits = settings.mongo_commits.find().sort({time: -1, date: -1})
     haml :index
   end
