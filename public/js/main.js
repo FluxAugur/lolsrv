@@ -26,7 +26,20 @@ var lazy = function() {
     images.splice(n,1);
   });
 };
+
 $(function(){
   lazy();
   $(window).scroll(lazy);
 });
+
+$('.close').click(function() {
+  var $this = $(this), $img = $this.prev('img'), $lol = $img.data('src');
+  $.ajax({
+    url: $lol,
+    type: 'DELETE',
+    success: function(result) {
+      $img.parent().remove();
+    }
+  });
+});
+

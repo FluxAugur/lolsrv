@@ -29,10 +29,10 @@
       .row
         - @commits.each do |commit|
           .col-md-4.commit
-            %a{href: commit['url'], target: "_blank"}
-              - title = commit['date'] and DateTime.strptime(commit['date'].to_s, "%s").strftime("%Y-%m-%d %H:%M:%S")
-              %img.lolimage{title: title, data: {src: url_for("/lol/#{commit['sha']}")}}
-
+            /%a{href: commit['url'], target: "_blank"}
+            - title = commit['date'] and DateTime.strptime(commit['date'].to_s, "%s").strftime("%Y-%m-%d %H:%M:%S")
+            %img.lolimage{title: title, data: {src: url_for("/lol/#{commit['sha']}")}}
+            %a.close.icon-trash.icon-white{href: "#"} x
 
       %hr
       %footer
