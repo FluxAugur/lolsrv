@@ -85,6 +85,14 @@ class LolServer < Sinatra::Base
     end
   end
 
+  delete '/lol/:sha' do |sha|
+    if settings.mongo_commits.remove({sha: sha})
+      redirect '/'
+    else
+      flash[:notify] = 'delete failed'
+    end
+  end
+
   get '/lols' do
     commits = settings.mongo_commits.find().sort({date: -1})
     commits.to_a.map { |c| {sha: c['sha']} }.to_json
