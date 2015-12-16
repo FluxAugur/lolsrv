@@ -1,24 +1,27 @@
 body {
-    padding-top: 60px;
-    padding-bottom: 40px;
+  padding-top: 60px;
+  padding-bottom: 40px;
 }
 
 .lolimage {
-	-moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
-	-webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-    display: inline-block;
-    height: 225px;
-    width: 300px;
+  position: relative;
+  -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  height: 225px;
+  width: 300px;
 }
 
+.row .commit {
+  margin-bottom: 20px;
+}
 
-
-
-
-
-
-
-
+a.close {
+  display: block;
+  position: absolute;
+  top: 5px;
+  left: 20px;
+}
 
 
