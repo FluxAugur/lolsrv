@@ -11,6 +11,7 @@ gem "json", "1.8.0"
 gem "haml"
 gem 'newrelic_rpm'
 gem "emk-sinatra-url-for", require: "sinatra/url_for"
+gem "railties"
 
 group :development do
     gem "shotgun"
