@@ -16,3 +16,7 @@ group :development do
     gem "shotgun"
     gem "guard-rack"
 end
+
+group :test do
+  gem "rake"
+end
